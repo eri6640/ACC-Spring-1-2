@@ -34,17 +34,17 @@ public class KjestApplication {
 		return user;
 	}
 
-  @RequestMapping("/resource")
-  public Map<String,Object> home() {
-    Map<String,Object> model = new HashMap<String,Object>();
-    model.put("id", UUID.randomUUID().toString());
-    model.put("content", "Hello World");
-    return model;
-  }
+	@RequestMapping("/resource")
+	public Map<String,Object> home() {
+	    Map<String,Object> model = new HashMap<String,Object>();
+	    model.put("id", UUID.randomUUID().toString());
+	    model.put("content", "Hello World");
+	    return model;
+	}
 
-  public static void main(String[] args) {
-    SpringApplication.run( KjestApplication.class, args );
-  }
+	public static void main(String[] args) {
+		SpringApplication.run( KjestApplication.class, args );
+	}
   
   /*@Configuration
   @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
@@ -60,18 +60,17 @@ public class KjestApplication {
     }
   }*/
   
-  @Configuration
-  @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-  protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http
-        .httpBasic().and()
-        .authorizeRequests()
-          .antMatchers("/index.html", "/home.html", "/login.html", "/").permitAll().anyRequest()
-          .authenticated().and()
-        .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
-    }
-  }
+	@Configuration
+	@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+	protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			http
+			.httpBasic().and()
+	        .authorizeRequests()
+	        .antMatchers("/index.html", "/home.html", "/login.html", "/").permitAll().anyRequest()
+	        .authenticated().and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
+		}
+	}
 
 }
